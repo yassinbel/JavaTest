@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Liste des clients</title>
+</head>
+<body>
+	<div class="container">
+		<form th:action="@{/clients}" method="get">
+			<div class="form-group">
+				<label>Mot clé:</label> <input type="text" name="motCle"
+					th:value="${motCle}" />
+				<button type="submit">Chercher</button>
+			</div>
+		</form>
+	</div>
+	<div class="container">
+		<h1>Liste des clients</h1>
+		
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nom</th>
+					<th>Prenom</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="p:${clients}">
+					<td th:text="${p.idClient}"></td>
+					<td th:text="${p.nom}"></td>
+					<td th:text="${p.prenom}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="container">
+		<ul class="nav nav-pills">
+			<li th:each="p:${pages}" th:class="${p==pageCourante}?active:''">
+				<a th:text="${p}+1" th:href="@{Index(page=${p})}"></a>
+			</li>
+		</ul>
+	</div>
+	<a th:href="@{clients/form}">Ajouter</a>
+</body>
+</html>
